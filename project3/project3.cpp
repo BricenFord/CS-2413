@@ -37,6 +37,23 @@ class NovelQueue {
 
 // Main program for organizing and manipulating input for proper output.
 int main() {
+    int n; // Number of commands
+    cin >> n; // Read in the number of commands
+
+    NovelQueue<CPUJob*>* myNovelQueue = new NovelQueue<CPUJob*>(); // Instantiate a NovelQueue for CPUJob pointers
+
+    char command; // Variable to store the command type
+
+    // Job attribute declaration placeholders
+    int job_id, priority, job_type, cpu_time_consumed, memory_consumed;
+
+    // Job attribute modification placeholders
+    int new_priority, new_job_type, new_cpu_time_consumed;
+    int new_memory_consumed;
+    int field_index, new_value;
+
+    int positions; // Variable to store number of positions in the 'Promote' command
+    int attribute_index; // Variable for the 'Reorder' command
 
     return 0; // End program
 }

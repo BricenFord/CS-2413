@@ -55,5 +55,41 @@ int main() {
     int positions; // Variable to store number of positions in the 'Promote' command
     int attribute_index; // Variable for the 'Reorder' command
 
+    for (int i = 0; i < n i++) {
+        cin >> command; // Read in command type
+
+        switch (command) {
+            case 'A': {
+
+            }
+            case 'R': {
+                
+            }
+            case 'M': {
+                
+            }
+            case 'C': {
+                
+            }
+            case 'P': {
+                
+            }
+            case 'O': {
+                
+            }
+            case 'D': {
+                
+            }
+            case 'N': {
+                
+            }
+            case 'L': {
+                
+            }
+            default:
+                cout << "Invalid command" << endl;
+        }
+    }
+
     return 0; // End program
 }

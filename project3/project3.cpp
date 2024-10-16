@@ -16,6 +16,9 @@ class CPUJob {
         int priority; // Priority level of the job (1-10)
         int job_type; // Job type (1-10)
         int cpu_time_consumed; // Total memory consumed
+        CPUJob(); // Default constructor
+        CPUJob(int job_id, int priority, int job_type, int cpu_time_consumed, int memory_consumed); // Parameterized constructor
+        ~CPUJob(); // Destructor
 };
 
 // Queue data structure (FiFo).
@@ -26,13 +29,24 @@ class Queue {
         Queue<DT>* next; // Pointer to the next node in the queue
 };
 
-// Class for storing and maintaining the CPUJob queue.
+// Class for storing and maintaining the CPUJob queue (FiFo).
 template <class DT>
 class NovelQueue {
     public:
         Queue<DT>* front; // Pointer to the front of the queue
         Queue<DT>** NodePtrs; // Array of queue node pointers
         int size; // Number of elements
+        NovelQueue<DT>(); // Default constructor
+        ~NovelQueue<DT>(); // Destructor
+        void enqueue(CPUJob* newJob); // Method to add elements to the queue
+        CPUJob* dequeue(); // Method to remove elements from the queue
+        void modify(int job_id, int new_priority, int new_job_type, int new_cpu_time_consumed, int new_memory_consumed); // Method to modify the first CPUJob object in the queue
+        void change(int job_id, int field_index, int new_value); // Change job values
+        void promote(int job_id, int positions); // Change position of CPUJob within queue
+        NovelQueue<DT>* reorder(int attribute_index); // Reorders the queue
+        void display(); // Display method
+        int count(); // Returns number of elements in queue
+        void listJobs(); // Prints jobs within queue
 };
 
 // Main program for organizing and manipulating input for proper output.
@@ -55,12 +69,16 @@ int main() {
     int positions; // Variable to store number of positions in the 'Promote' command
     int attribute_index; // Variable for the 'Reorder' command
 
-    for (int i = 0; i < n i++) {
+    for (int i = 0; i < n; i++) {
         cin >> command; // Read in command type
 
         switch (command) {
             case 'A': {
-
+                cin >> job_id >> priority >> job_type;
+                cin >> cpu_time_consumed >> memory_consumed;
+                // CPUJob* newJob = new CPUJob(job_id, priority, job_type, cpu_time_consumed, memory_consumed);
+                // (*myNovelQueue).enqueue(newJob);
+                break;
             }
             case 'R': {
                 
@@ -90,6 +108,8 @@ int main() {
                 cout << "Invalid command" << endl;
         }
     }
+
+    delete myNovelQueue; // Delete NovelQueue after program completion
 
     return 0; // End program
 }

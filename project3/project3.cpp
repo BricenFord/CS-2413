@@ -36,18 +36,26 @@ class NovelQueue {
         Queue<DT>* front; // Pointer to the front of the queue
         Queue<DT>** NodePtrs; // Array of queue node pointers
         int size; // Number of elements
-        NovelQueue<DT>(); // Default constructor
-        ~NovelQueue<DT>(); // Destructor
+        NovelQueue(); // Default constructor
+        ~NovelQueue(); // Destructor
         void enqueue(CPUJob* newJob); // Method to add elements to the queue
         CPUJob* dequeue(); // Method to remove elements from the queue
         void modify(int job_id, int new_priority, int new_job_type, int new_cpu_time_consumed, int new_memory_consumed); // Method to modify the first CPUJob object in the queue
         void change(int job_id, int field_index, int new_value); // Change job values
-        void promote(int job_id, int positions); // Change position of CPUJob within queue
+        void promote(int job_id, int positions); // Move CPUJob higher in the queue based on the given positions value
         NovelQueue<DT>* reorder(int attribute_index); // Reorders the queue
         void display(); // Display method
         int count(); // Returns number of elements in queue
         void listJobs(); // Prints jobs within queue
 };
+template <class DT>
+NovelQueue<DT>::NovelQueue() {
+
+}
+template <class DT>
+NovelQueue<DT>::~NovelQueue() {
+    
+}
 
 // Main program for organizing and manipulating input for proper output.
 int main() {

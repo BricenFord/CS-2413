@@ -20,6 +20,7 @@ class CPUJob {
         CPUJob(); // Default constructor
         CPUJob(int job_id, int priority, int job_type, int cpu_time_consumed, int memory_consumed); // Parameterized constructor
         ~CPUJob(); // Destructor
+        void display(); // Display method
 };
 CPUJob::CPUJob() {}
 CPUJob::CPUJob(int job_id, int priority, int job_type, int cpu_time_consumed, int memory_consumed) {
@@ -30,6 +31,9 @@ CPUJob::CPUJob(int job_id, int priority, int job_type, int cpu_time_consumed, in
     (*this).memory_consumed = memory_consumed;
 }
 CPUJob::~CPUJob() {}
+void CPUJob::display() {
+    cout << "Job ID: " << job_id << ", Priority: " << priority << ", Job Type: " << job_type << ", CPU Time Consumed: " << cpu_time_consumed << ", Memory Consumed: " << memory_consumed << endl;
+}
 
 // Queue data structure (FiFo).
 template <class DT>
@@ -68,7 +72,42 @@ template <class DT>
 NovelQueue<DT>::~NovelQueue() {
     // to be implemented !!!
 }
-
+template <class DT>
+void NovelQueue<DT>::enqueue(CPUJob* newJob) {
+    // to be implemented !!!
+}
+template <class DT>
+CPUJob* NovelQueue<DT>::dequeue() {
+    // to be implemented !!!
+}
+template <class DT>
+void NovelQueue<DT>::modify(int job_id, int new_priority, int new_job_type, int new_cpu_time_consumed, int new_memory_consumed) {
+    // to be implemented !!!
+}
+template <class DT>
+void NovelQueue<DT>::change(int job_id, int field_index, int new_value) {
+    // to be implemented !!!
+}
+template <class DT>
+void NovelQueue<DT>::promote(int job_id, int positions) {
+    // to be implemented !!!
+}
+template <class DT>
+NovelQueue<DT>* NovelQueue<DT>::reorder(int attribute_index) {
+    // to be implemented !!!
+}
+template <class DT>
+void NovelQueue<DT>::display() {
+    // to be implemented !!!
+}
+template <class DT>
+int NovelQueue<DT>::count() {
+    // to be implemented !!!
+}
+template <class DT>
+void NovelQueue<DT>::listJobs() {
+    // to be implemented !!!
+}
 
 // Main program for organizing and manipulating input for proper output.
 int main() {
@@ -93,16 +132,23 @@ int main() {
     for (int i = 0; i < n; i++) {
         cin >> command; // Read in command type
 
+        // Here we are parsing through the commands to determine which one should be performed based on the command type
         switch (command) {
-            case 'A': {
+            case 'A': { // Command to add a new CPUJob to queue (enqueue)
                 cin >> job_id >> priority >> job_type;
                 cin >> cpu_time_consumed >> memory_consumed;
-                // CPUJob* newJob = new CPUJob(job_id, priority, job_type, cpu_time_consumed, memory_consumed);
-                // (*myNovelQueue).enqueue(newJob);
+                CPUJob* newJob = new CPUJob(job_id, priority, job_type, cpu_time_consumed, memory_consumed);
+                (*myNovelQueue).enqueue(newJob);
                 break;
             }
-            case 'R': {
-                
+            case 'R': { // Command to remove a CPUJob from queue (dequeue)
+                CPUJob* removedJob = (*myNovelQueue).dequeue(); // Create placeholder for dequeue'd job
+                if (removedJob) {
+                    cout << "Dequeued Job:" << endl;
+                    (*removedJob).display();
+                }
+                delete removedJob; // Clean up memory after use
+                break;
             }
             case 'M': {
                 

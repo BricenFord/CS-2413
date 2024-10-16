@@ -15,11 +15,21 @@ class CPUJob {
         int job_id; // Unique identifier for the job
         int priority; // Priority level of the job (1-10)
         int job_type; // Job type (1-10)
-        int cpu_time_consumed; // Total memory consumed
+        int cpu_time_consumed; // CPU time consumed from performing job
+        int memory_consumed; // Total memory consumed (from job)
         CPUJob(); // Default constructor
         CPUJob(int job_id, int priority, int job_type, int cpu_time_consumed, int memory_consumed); // Parameterized constructor
         ~CPUJob(); // Destructor
 };
+CPUJob::CPUJob() {}
+CPUJob::CPUJob(int job_id, int priority, int job_type, int cpu_time_consumed, int memory_consumed) {
+    (*this).job_id = job_id;
+    (*this).priority = priority;
+    (*this).job_type = job_type;
+    (*this).cpu_time_consumed = cpu_time_consumed;
+    (*this).memory_consumed = memory_consumed;
+}
+CPUJob::~CPUJob() {}
 
 // Queue data structure (FiFo).
 template <class DT>
@@ -50,12 +60,15 @@ class NovelQueue {
 };
 template <class DT>
 NovelQueue<DT>::NovelQueue() {
-
+    front = new Queue<DT>();
+    size = 0; // initialized at 0, as queue starts empty
+    NodePtrs = new Queue<DT>*[size];
 }
 template <class DT>
 NovelQueue<DT>::~NovelQueue() {
-    
+    // to be implemented !!!
 }
+
 
 // Main program for organizing and manipulating input for proper output.
 int main() {

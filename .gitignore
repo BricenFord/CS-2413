@@ -1,4 +1,5 @@
 .DS_Store
+.vscode/
 project1/a.out
 project2/a.out
 project3/a.out

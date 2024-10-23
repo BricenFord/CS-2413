@@ -456,9 +456,15 @@ Debugging and Testing Plan:
     Verification 1: After using cout commands in my main to determine whether or not I am taking in exactly what I need to, I began to actually assign these 
         inputs to variables. I then tested to make sure this was completed properly by using display() methods that I created.
 
-    Specific Test 2: My second test was testing to see if my reorder method was functioning as intended. I tested this by simply just running the program with the inputs and seeing
+    Specific Test 2: My second test was making sure that my enqueue and dequeue methods were functioning properly by taking the information I read in from
+        my test 1 and then using the enqueue and dequeue methods within the main method with the input files.
+    Issue and Resolution 2: There were a couple issues making sure that enqueue and dequeue worked perfectly with the NodePtrs array of pointers and front pointer.
+        I fixed this by using specific cases to make sure the dequeue method dequeues front and then moves the nodes within the NodePtrs array of pointers.
+    Verification 2: This test allowed me to get my enqueue and dequeue method functioning properly, which is essential for any queue data structure.
+
+    Specific Test 3: My third test was testing to see if my reorder method was functioning as intended. I tested this by simply just running the program with the inputs and seeing
         what would output.
-    Issue and Resolution 2: I encountered the issue of my reorder method not functioning as intended. It would just order explicitly by the attribute to be ordered by and wouldn't account
+    Issue and Resolution 3: I encountered the issue of my reorder method not functioning as intended. It would just order explicitly by the attribute to be ordered by and wouldn't account
         at all the position in the queue the node is. I fixed this by asking ChatGPT what was wrong and then it gave me the idea to use a stable sort algorithm. So I made and implemented one.
-    Verification 2: This worked spectacularly and allowed my output files to be identical to the output files given on canvas.
+    Verification 3: This worked spectacularly and allowed my output files to be identical to the output files given on canvas.
 */

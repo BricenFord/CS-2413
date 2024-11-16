@@ -332,8 +332,12 @@ Debugging and Testing Plan:
     Issues and Resolutions 1: There was no issues
     Verification 1: I combined the output from the console with the input files to verify that all of the numbers are being read in correctly.
 
-    Specific Test 2: I created a program that compares strings so that I could compare my output for each input file to the correct output files.
-    Issues and Resolutions 2: It took me time to create the program, and complete this program so that all of the outputs are correct, but overall minimal issues.
-    Verification 2: Using the program I created I could paste the output I got from the project4 program I created and the desired output files for the project to see if my program was 
+    Specific Test 2: After making sure all of the values are read in, I then made sure all of my methods were working properly by comparing my Final List to the output file's Final List.
+    Issues and Resolutions 2: I had an issue where I was not putting a newline every 20 values like they did in the output file (which I was not aware we were suppoed to, but it was an easy fix).
+    Verification 2: I made my program output a newline every 20 values and verified by comparing my Final List with the output file's Final List once again.
+
+    Specific Test 3: I created a program that compares strings so that I could compare my output for each input file to the correct output files.
+    Issues and Resolutions 3: It took me time to create the program, and complete this program so that all of the outputs are correct, but overall minimal issues.
+    Verification 3: Using the program I created, I could paste the output I got from the project4 program I created and the desired output files for the project to see if my program was 
         functioning properly.
 */

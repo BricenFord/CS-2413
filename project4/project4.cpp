@@ -8,6 +8,13 @@ array recursively and using the split values for tree navigation.
 #include <vector>
 using namespace std;
 
+class NotFoundException {
+    public:
+        const char* what() const {
+            return "Value not found.";
+        }
+};
+
 template <class DT>
 /* Write NotFoundException exception for removal */
 class MTree {
@@ -19,7 +26,7 @@ class MTree {
         MTree(int M);
         ~MTree();
         bool isLeaf() const; // Check if the current node is a leaf
-        void insert(const DT& value); // Insert a value into the MTree
+        bool insert(DT& value); // Insert a value into the MTree
         void split_node(); // Split the node if it exceeds capacity
         MTree* find_child(const DT& value); // Find child
         bool search(const DT& value); // Search for a value in the MTree
@@ -34,7 +41,11 @@ MTree<DT>::MTree(int M) { //
 }
 template <class DT>
 MTree<DT>::~MTree() { //
-    //
+    for (int i = 0; i < children.size(); i++) {
+        delete children[i];
+    }
+
+    children.clear();
 }
 template <class DT>
 bool MTree<DT>::isLeaf() const {
@@ -44,29 +55,95 @@ bool MTree<DT>::isLeaf() const {
     return false;
 }
 template <class DT>
-void MTree<DT>::insert(const DT& value) {
-    //
+bool MTree<DT>::insert(DT& value) {
+    if (find(value)) {
+        return false;
+    }
+    vector<DT> temp = collect_values();
+    temp.push_back(value);
+    sort(temp.begin(), temp.end());
+    buildTree(temp);
+    return true;
 }
 template <class DT>
 void MTree<DT>::split_node() {
-    //
+    if (values.size() < M) {
+        return;
+    }
+
+    int splitSize = values.size() / M;
+    vector<DT> tempValues = values;
+    values.clear();
+
+    for (int i = 0; i < M; i++) {
+        int start = i * splitSize;
+        int end = (i == M - 1) ? tempValues.size() : (i + 1) * splitSize;
+
+        vector<DT> childValues(tempValues.begin() + start, tempValues.begin() + end);
+
+        MTree<DT>* child = new MTree<DT>(M);
+        child->values = childValues;
+        children.push_back(child);
+    }
 }
 template <class DT>
 MTree<DT>* MTree<DT>::find_child(const DT& value) {
-    //
-    return nullptr;
+    for (int i = 0; i < values.size(); i++) {
+        if (value < values[i]) {
+            return children[i];
+        }
+    }
+    return children[children.size() - 1];
 }
 template <class DT>
 bool MTree<DT>::search(const DT& value) {
-    //
+    for (int i = 0; i < values.size(); i++) {
+        if (values[i] == value) {
+            return true;
+        }
+    }
+
+    if (isLeaf()) {
+        return false;
+    }
+
+    MTree<DT>* child = find_child(value);
+    if (child) {
+        return child->search(value);
+    }
+
     return false;
 }
 template <class DT>
 void MTree<DT>::remove(const DT& value) {
-    //
+    vector<DT> temp = (*this).collect_values();
+    bool found = false;
+    for (int i = 0; i < temp.size(); i++) {
+        if (temp[i] == value) {
+            found = true;
+            for (int j = i; j < temp.size() - 1; j++) {
+                temp[j] = temp[j + 1];
+            }
+            temp.pop_back();
+            break;
+        }
+    }
+
+    if (!found) {
+        throw NotFoundException();
+    }
+
+    buildTree(temp);
 }
 template <class DT>
 void MTree<DT>::buildTree(vector<DT>& input_values) {
+
+    values.clear();
+    for (int i = 0; i < children.size(); i++) {
+        delete children[i];
+    }
+    children.clear();
+
     if (input_values.size() <= M - 1) {
         values = input_values;
         return;
@@ -162,14 +239,26 @@ int main() {
     cin >> numCommands; // Read in number of commands
     for (int i = 0; i < numCommands; i++) { // Increment through all commands
         cin >> command;
-        cout << command << endl;
         switch (command) { // Switch/case to determine what each command does
             case 'I': { // Insert
                 cin >> value;
+                bool isNotFound = myTree->insert(value);
+                if (isNotFound) {
+                    cout << "The value = " << value << " has been inserted." << endl;
+                }
+                else {
+                    cout << "The value = " << value << " already in the tree." << endl;
+                }
                 break;
             }
             case 'R': { // Remove
                 cin >> value;
+                try {
+                    myTree->remove(value);
+                    cout << "The value = " << value << " has been removed." << endl;
+                } catch (NotFoundException& e) {
+                    cout << "The value = " << value << " not found." << endl;
+                }
                 break;
             }
             case 'F': { // Find
@@ -179,13 +268,14 @@ int main() {
                     cout << "The element with value = " << value << " was found." << endl;
                 }
                 else {
-                    cout << "The value " << value << " was not found" << endl; // THIS WILL CHANGE I DO NOT KNOW WHAT THE PROPER OUTPUT IS FOR THIS CASE !!!
+                    cout << "The element with value = " << value << " not found" << endl; // THIS WILL CHANGE I DO NOT KNOW WHAT THE PROPER OUTPUT IS FOR THIS CASE !!!
                 }
                 break;
             }
             case 'B': { // Rebuild Tree
-                //vector<int> myValues = (*myTree).collect_values();
-                //(*myTree).buildTree(myValues);
+                vector<int> myValues = (*myTree).collect_values();
+                (*myTree).buildTree(myValues);
+                cout << "The tree has been rebuilt." << endl;
                 break;
             }
             default: { // Invalid command
@@ -210,6 +300,11 @@ int main() {
 
 /*
 LLM Documentation:
+    Prompts and Suggestions 1: Make an algorithm that once an element is found within a c++ vector it will 
+    Rationate 1:
+    Incremental Development 1:
+
+    Prompts and Suggestions 2: Make an exception for me called NotFoundException
 */
 
 /*
